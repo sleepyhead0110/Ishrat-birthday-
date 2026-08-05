@@ -8,21 +8,18 @@
 <style>
 body {
     margin: 0;
-    font-family: 'Segoe UI', sans-serif;
-    overflow: hidden;
-    background: black;
-    color: white;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to right, #ff758c, #ff7eb3);
     text-align: center;
+    color: white;
 }
 
-#main {
-    position: relative;
-    z-index: 2;
+.container {
     padding: 20px;
 }
 
 h1 {
-    font-size: 40px;
+    font-size: 35px;
 }
 
 #text {
@@ -37,53 +34,51 @@ img {
 }
 
 button {
-    padding: 10px 20px;
+    padding: 12px 20px;
     font-size: 18px;
     border: none;
     border-radius: 10px;
-    background: pink;
+    background: white;
+    color: #ff4b5c;
     cursor: pointer;
-}
-
-/* fireworks canvas */
-canvas {
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 1;
+    margin-top: 20px;
 }
 </style>
 </head>
 
 <body>
 
-<canvas id="fireworks"></canvas>
+<div class="container">
 
-<div id="main">
-    <h1>Happy Birthday 🎂💖</h1>
-    <div id="text"></div>
+<h1>Happy Birthday 🎂💖</h1>
 
-    <img id="slide" src="image1.jpg">
+<div id="text"></div>
 
-    <br>
-    <button onclick="startAll()">Tap Here 💞</button>
+<img id="slide" src="img.png">
+
+<br>
+<button onclick="start()">Tap Here 💞</button>
+
 </div>
 
+<!-- 🎵 MUSIC -->
 <audio id="music" loop>
-    <source src="music.mp3" type="audio/mpeg">
+    <source src="aud.mp3" type="audio/mpeg">
 </audio>
 
 <script>
-// 💞 Typing effect
+
+// 💞 Typing Text
 let msg = [
 "Hey you 💞",
 "Happy Birthday 🎈",
 "May God bless you 🍀",
-"You are special ❤️",
+"You are very special ❤️",
 "Stay happy always 😘"
 ];
 
 let i=0,j=0;
+
 function type() {
     if(i < msg.length){
         if(j < msg[i].length){
@@ -98,62 +93,44 @@ function type() {
     }
 }
 
-// 🖼️ Slideshow
-let images = ["image1.jpg","image2.jpg","image3.jpg"];
+// 🖼️ Slideshow (TERI IMAGES)
+let images = ["img.png","img2.png"];
 let k=0;
+
 function slideShow(){
     k=(k+1)%images.length;
     document.getElementById("slide").src = images[k];
     setTimeout(slideShow,2000);
 }
 
-// 🎆 Fireworks
-let canvas = document.getElementById("fireworks");
-let ctx = canvas.getContext("2d");
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-
-function firework(){
-    for(let i=0;i<50;i++){
-        let x = Math.random()*canvas.width;
-        let y = Math.random()*canvas.height;
-        ctx.fillStyle = "hsl(" + Math.random()*360 + ",100%,50%)";
-        ctx.fillRect(x,y,3,3);
-    }
-    setTimeout(firework,100);
-}
-
-// 🎉 Confetti
+// 🎉 Simple Confetti
 function confetti(){
-    for(let i=0;i<100;i++){
-        let div = document.createElement("div");
-        div.style.position="fixed";
-        div.style.width="5px";
-        div.style.height="5px";
-        div.style.background="hsl("+Math.random()*360+",100%,50%)";
-        div.style.left=Math.random()*100+"%";
-        div.style.top="-10px";
-        div.style.zIndex="3";
-        document.body.appendChild(div);
+    let div = document.createElement("div");
+    div.style.position="fixed";
+    div.style.width="6px";
+    div.style.height="6px";
+    div.style.background="white";
+    div.style.left=Math.random()*100+"%";
+    div.style.top="-10px";
+    document.body.appendChild(div);
 
-        let fall = setInterval(()=>{
-            div.style.top = (parseInt(div.style.top)+5)+"px";
-            if(parseInt(div.style.top)>window.innerHeight){
-                clearInterval(fall);
-                div.remove();
-            }
-        },50);
-    }
+    let fall = setInterval(()=>{
+        div.style.top = (parseInt(div.style.top)+5)+"px";
+        if(parseInt(div.style.top)>window.innerHeight){
+            clearInterval(fall);
+            div.remove();
+        }
+    },50);
 }
 
-// ▶️ Start All
-function startAll(){
+// ▶️ Start
+function start(){
     document.getElementById("music").play();
     type();
     slideShow();
-    firework();
-    setInterval(confetti,2000);
+    setInterval(confetti,200);
 }
+
 </script>
 
 </body>
