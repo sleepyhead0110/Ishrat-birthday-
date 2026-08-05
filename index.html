@@ -2,195 +2,160 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Happy Birthday Ishrat 💖</title>
+<title>Happy Birthday Ishrat ❤️</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
 body {
-  margin: 0;
-  overflow: hidden;
-  font-family: 'Segoe UI', sans-serif;
-  background: black;
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(to top right, #ff758c, #ff7eb3);
+    text-align: center;
+    color: white;
+    overflow-x: hidden;
 }
 
-/* Background Image */
-.bg {
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  background: url('img.png') no-repeat center/cover;
-  filter: brightness(0.5);
+.container {
+    padding: 20px;
 }
 
-/* Center Content */
-.content {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
-  color: white;
-  width: 90%;
-}
-
-/* Heading */
 h1 {
-  font-size: 38px;
-  color: #ff4d6d;
-  text-shadow: 0 0 20px #ff4d6d;
-  animation: glow 2s infinite alternate;
+    font-size: 38px;
+    animation: glow 2s infinite alternate;
 }
 
 @keyframes glow {
-  from { text-shadow: 0 0 10px #ff4d6d; }
-  to { text-shadow: 0 0 30px #ff4d6d; }
+    from { text-shadow: 0 0 10px white; }
+    to { text-shadow: 0 0 25px pink; }
 }
 
-/* Typing Text */
-#typing {
-  font-size: 18px;
-  margin-top: 10px;
-  text-shadow: 0 0 10px pink;
+#text {
+    font-size: 20px;
+    margin-top: 20px;
 }
 
-/* Button */
+img {
+    width: 260px;
+    border-radius: 20px;
+    margin-top: 20px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+}
+
+.cake {
+    width: 200px;
+    margin-top: 20px;
+    animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0); }
+}
+
 button {
-  padding: 12px 20px;
-  border: none;
-  background: #ff4d6d;
-  color: white;
-  font-size: 16px;
-  border-radius: 20px;
-  margin-top: 15px;
+    padding: 12px 25px;
+    font-size: 18px;
+    border: none;
+    border-radius: 10px;
+    background: white;
+    color: #ff4b5c;
+    cursor: pointer;
+    margin-top: 20px;
 }
 
-/* Hearts */
+/* 💖 hearts */
 .heart {
-  position: absolute;
-  color: pink;
-  animation: float 5s linear infinite;
+    position: fixed;
+    color: pink;
+    animation: fall 5s linear infinite;
 }
 
-@keyframes float {
-  0% {transform: translateY(100vh);}
-  100% {transform: translateY(-10vh);}
-}
-
-/* Canvas */
-canvas {
-  position: fixed;
-  top: 0;
-  left: 0;
+@keyframes fall {
+    0% { transform: translateY(-100px); }
+    100% { transform: translateY(100vh); }
 }
 </style>
 </head>
 
 <body>
 
-<div class="bg"></div>
+<div class="container">
 
-<div class="content">
-  <h1>Happy Birthday Ishrat 💖</h1>
-  <p id="typing"></p>
-  <button onclick="start()">Tap for Surprise 🎁</button>
+<h1>Happy Birthday Ishrat 🎂💖</h1>
+
+<div id="text"></div>
+
+<!-- 🎂 CAKE -->
+<img src="cake.png" class="cake">
+
+<!-- 🖼️ IMAGES -->
+<img id="slide" src="img.png">
+
+<br>
+<button onclick="start()">Tap Here 💞</button>
+
 </div>
 
+<!-- 🎵 MUSIC -->
 <audio id="music" loop>
-  <source src="aud.mp3" type="audio/mpeg">
+    <source src="aud.mp3" type="audio/mpeg">
 </audio>
-
-<canvas id="fireworks"></canvas>
 
 <script>
 
-/* ▶️ START FUNCTION */
-function start(){
-  document.getElementById("music").play();
-  typeEffect();
-}
-
-/* 💌 Typing Effect */
-let text = [
-  "You are my most special person 💕",
-  "Ishrat... tum meri life ka best part ho ❤️",
-  "Allah tumhe hamesha khush rakhe 🌙",
-  "I really like you 🥰"
+// 💞 Typing message (ISHRAT SPECIAL)
+let msg = [
+"Hey Ishrat 💞",
+"Happy Birthday 🎈",
+"Tu bohot special hai ❤️",
+"Allah tujhe hamesha khush rakhe 🍀",
+"Mujhe tu bahut pasand hai 😘"
 ];
 
-let line = 0;
-let char = 0;
-
-function typeEffect(){
-  if(line < text.length){
-    if(char < text[line].length){
-      document.getElementById("typing").innerHTML += text[line].charAt(char);
-      char++;
-      setTimeout(typeEffect, 50);
-    } else {
-      document.getElementById("typing").innerHTML += "<br>";
-      line++;
-      char = 0;
-      setTimeout(typeEffect, 700);
+let i=0,j=0;
+function type() {
+    if(i < msg.length){
+        if(j < msg[i].length){
+            document.getElementById("text").innerHTML += msg[i][j];
+            j++;
+            setTimeout(type,50);
+        } else {
+            document.getElementById("text").innerHTML += "<br>";
+            i++; j=0;
+            setTimeout(type,500);
+        }
     }
-  }
 }
 
-/* 💖 Hearts Animation */
-setInterval(()=>{
-  let heart = document.createElement("div");
-  heart.innerHTML = "💖";
-  heart.className = "heart";
-  heart.style.left = Math.random()*100 + "vw";
-  heart.style.fontSize = (10 + Math.random()*20) + "px";
-  document.body.appendChild(heart);
+// 🖼️ Slideshow
+let images = ["img.png","img2.png"];
+let k=0;
 
-  setTimeout(()=> heart.remove(),5000);
-},300);
-
-/* 🎇 Fireworks */
-const canvas = document.getElementById("fireworks");
-const ctx = canvas.getContext("2d");
-
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-
-let particles = [];
-
-function createFirework(){
-  let x = Math.random()*canvas.width;
-  let y = Math.random()*canvas.height/2;
-
-  for(let i=0;i<50;i++){
-    particles.push({
-      x:x,
-      y:y,
-      dx:(Math.random()-0.5)*5,
-      dy:(Math.random()-0.5)*5,
-      life:100
-    });
-  }
+function slideShow(){
+    k=(k+1)%images.length;
+    document.getElementById("slide").src = images[k];
+    setTimeout(slideShow,2000);
 }
 
-function animate(){
-  ctx.fillStyle = "rgba(0,0,0,0.2)";
-  ctx.fillRect(0,0,canvas.width,canvas.height);
+// 💖 Heart rain
+function hearts(){
+    let h = document.createElement("div");
+    h.innerHTML = "💖";
+    h.className = "heart";
+    h.style.left = Math.random()*100 + "%";
+    document.body.appendChild(h);
 
-  particles.forEach((p,i)=>{
-    p.x+=p.dx;
-    p.y+=p.dy;
-    p.life--;
-
-    ctx.fillStyle="hsl(" + Math.random()*360 + ",100%,50%)";
-    ctx.fillRect(p.x,p.y,2,2);
-
-    if(p.life<=0) particles.splice(i,1);
-  });
-
-  requestAnimationFrame(animate);
+    setTimeout(()=>{ h.remove(); },5000);
 }
 
-setInterval(createFirework,1000);
-animate();
+// ▶️ Start
+function start(){
+    document.getElementById("music").play();
+    type();
+    slideShow();
+    setInterval(hearts,300);
+}
 
 </script>
 
